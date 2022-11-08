@@ -1,2 +1,2 @@
 ## Schedus Admin
-Admin panel for Schedus app mobile project
+Admin Panel for Schedus app mobile project
