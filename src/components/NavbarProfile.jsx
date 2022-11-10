@@ -3,6 +3,7 @@ import { Menu } from "@headlessui/react";
 import { Icon } from "@iconify/react";
 
 const NavbarProfile = ({img}) => {
+    
     return ( 
         <Menu className="relative" as="div">
             <Menu.Button className="flex rounded-full hover:scale-105 transition-all ease-out duration-100 p-[2px] border-2 items-center gap-2 cursor-pointer w-full">

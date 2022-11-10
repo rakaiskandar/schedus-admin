@@ -1,6 +1,7 @@
 import React from "react";
 import SidebarItem from "./SidebarItem";
 import { useLocation } from "react-router-dom";
+import { Icon } from "@iconify/react";
 import logo from '../assets/app_logo.png';
 
 const Sidebar = () => {
@@ -40,6 +41,9 @@ const Sidebar = () => {
                 <div className="mb-4 -mt-8">
                     <img src={logo} alt="logo" className="w-11/12"/>
                 </div>
+                
+                <h3 className="font-medium text-gray-400">Menu</h3>
+                
                 {sidebarItems.map((item, i) => (
                     <SidebarItem
                     key={i}
