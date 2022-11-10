@@ -20,8 +20,16 @@ body{
   @apply font-medium p-4 w-2/3 flex py-3 border-2 border-gray-300 rounded-lg outline-blue-500 hover:border-blue-600 duration-500 transition-all ease-in;
 }
 
+.addInput {
+  @apply flex text-sm py-2 w-full outline-none focus-within:border-blue-600 focus:border-blue-600 px-3 border-gray-300 border-[1px] my-[6px] rounded;
+}
+
+.addButton {
+  @apply bg-blue-600 py-2 px-3 hover:bg-blue-700 rounded text-white font-medium  flex items-center gap-2 text-sm;
+}
+
 .sidebarItem {
-  @apply flex items-center gap-3 p-2 rounded-sm hover:bg-gray-100 opacity-70;
+  @apply flex items-center gap-3 p-3 rounded-sm hover:bg-gray-100 opacity-70;
 }
 
 .sidebarActive {
@@ -30,6 +38,10 @@ body{
 
 .layoutContainer {
   @apply py-2 md:py-4 px-4 md:px-10;
+}
+
+.contentContainer {
+  @apply bg-white p-4 my-4 rounded shadow;
 }
 
 .pageName {
