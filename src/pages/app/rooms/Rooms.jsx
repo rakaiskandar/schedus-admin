@@ -2,8 +2,35 @@ import { Helmet } from "react-helmet-async";
 import NavbarAdmin from "../../../components/NavbarAdmin";
 import { Link } from "react-router-dom";
 import { Icon } from "@iconify/react";
+import { useMemo } from "react";
+import EmptyTable from "../../../components/EmptyTable";
 
 const Rooms = () => {
+    const columns = useMemo(
+        () => [
+            {
+                Header: "Image",
+                accessor: "image",
+                Cell: ({ cell: {value} }) => (
+                    <p className={`text-[13px]`}>{value}</p>
+                )
+            },
+            {
+                Header: "Building",
+                accessor: "building",
+                Cell: ({ cell: {value} }) => (
+                    <p className={`max-w-[160px]`}>{value}</p>
+                )
+            },
+            {
+                Header: "Rooms",
+                accessor: "room",
+                Cell: ({ cell: {value} }) => (
+                    <p className={`text-[13px]`}>{value}</p>
+                )
+            },
+        ]
+    )
     return ( 
         <>
         <Helmet>
@@ -29,6 +56,8 @@ const Rooms = () => {
                     className="w-full focus:border-blue-600 text-sm outline-none border-[1px] border-gray-300 transition-all duration-300 ease-out  rounded p-2"
                 />
                 </div>
+
+                <EmptyTable columns={columns}/>
             </div>
         </div>
         </>
