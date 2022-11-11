@@ -2,8 +2,52 @@ import { Helmet } from "react-helmet-async";
 import { Link } from "react-router-dom";
 import NavbarAdmin from "../../../components/NavbarAdmin";
 import { Icon } from "@iconify/react";
+import { useMemo, useState } from "react";
+import EmptyTable from "../../../components/EmptyTable";
 
 const User = () => {
+    const [users, setUsers] = useState(false);
+
+    const columns = useMemo(
+        () => [
+            {
+                Header: "Email",
+                accessor: "email",
+                Cell: ({ cell: {value} }) => (
+                    <p className={`text-[13px]`}>{value}</p>
+                )
+            },
+            {
+                Header: "Name",
+                accessor: "name",
+                Cell: ({ cell: {value} }) => (
+                    <p className={`max-w-[160px]`}>{value}</p>
+                )
+            },
+            {
+                Header: "NIS",
+                accessor: "nis",
+                Cell: ({ cell: {value} }) => (
+                    <p className={`text-[13px]`}>{value}</p>
+                )
+            },
+            {
+                Header: "Grade",
+                accessor: "grade",
+                Cell: ({ cell: {value} }) => (
+                    <p className={`text-[13px]`}>{value}</p>
+                )
+            },
+            {
+                Header: "Role",
+                accessor: "role",
+                Cell: ({ cell: {value} }) => (
+                    <p className={`text-[13px]`}>{value}</p>
+                )
+            },
+        ]
+    )
+
     return ( 
         <>
         <Helmet>
@@ -29,6 +73,8 @@ const User = () => {
                     className="w-full focus:border-blue-600 text-sm outline-none border-[1px] border-gray-300 transition-all duration-300 ease-out  rounded p-2"
                 />
                 </div>
+                
+                <EmptyTable columns={columns}/>
             </div>
         </div>
         </>
