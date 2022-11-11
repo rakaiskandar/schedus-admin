@@ -9,11 +9,11 @@ body{
 }
 
 .btnPrimary{
-  @apply font-semibold rounded-md w-2/3 py-3 px-6 border-blue-500 border-2   bg-blue-500 text-white hover:bg-blue-700 hover:border-blue-700 duration-100;
+  @apply font-semibold rounded-md w-2/3 py-3 px-6 border-blue-500 border-2  bg-blue-500 text-white hover:bg-blue-700 hover:border-blue-700 duration-100;
 }
 
 .btnSecondary{
-  @apply font-semibold rounded-md py-3 px-6 border-gray-300 border-2   bg-white text-blue-700 hover:border-blue-700 duration-100;
+  @apply font-semibold rounded-md py-3 px-6 border-gray-300 border-2  bg-white text-blue-700 hover:border-blue-700 duration-100;
 }
 
 .inputStyle{
@@ -26,6 +26,14 @@ body{
 
 .addButton {
   @apply bg-blue-600 py-2 px-3 hover:bg-blue-700 rounded text-white font-medium  flex items-center gap-2 text-sm;
+}
+
+.cancelBtn {
+  @apply rounded py-3 hover:bg-blue-100 font-semibold text-sm px-6 text-blue-600 border-2 border-blue-600;
+}
+
+.createBtn {
+  @apply bg-blue-600 py-3 hover:bg-blue-700 px-6 font-semibold text-white rounded text-sm;
 }
 
 .sidebarItem {
@@ -56,5 +64,19 @@ body{
 
 .shadowProfile {
   box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+}
+
+::-webkit-scrollbar {
+  width: 7px;
+}
+::-webkit-scrollbar-track {
+  background: #fff;
+}
+::-webkit-scrollbar-thumb {
+  background: rgb(175, 175, 175);
+  border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgb(150, 150, 150);
 }
 
