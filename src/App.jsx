@@ -11,11 +11,14 @@ import NewUser from "./pages/app/user/NewUser"
 import User from "./pages/app/user/User"
 import Login from "./pages/Login"
 import NewRooms from "./pages/app/rooms/NewRooms"
+import { ToastContainer } from "react-toastify"
+import "react-toastify/dist/ReactToastify.css"
 
 function App() {
 
   return (
     <HelmetProvider>
+      <ToastContainer/>
       <BrowserRouter>
       <Routes>
         <Route path="/" element={<Login/>}/>
