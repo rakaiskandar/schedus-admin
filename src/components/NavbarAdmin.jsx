@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import profile from "../assets/bear.png";
 import NavbarProfile from "./NavbarProfile";
 
-const NavbarAdmin = () => {
+const NavbarAdmin = ({user}) => {
     const [greeting, setGreeting] = useState("");
 
     useEffect(() => {
@@ -31,12 +31,12 @@ const NavbarAdmin = () => {
     }, [])
 
     return ( 
-        <nav className="flex shadow-sm bg-white py-3 px-5 border-b-[1px] border-b-gray-300 items-center sticky top-0 z-30 justify-between">
+        <nav className="hidden md:flex shadow-sm bg-white py-3 px-5 border-b-[1px] border-b-gray-300 items-center sticky top-0 z-30 justify-between">
             <h5 className="text-lg font-semibold">
-                <span className="text-3xl">{greeting.emoji}</span>{greeting.greet} Admin
+                <span className="text-3xl">{greeting.emoji}</span>{greeting.greet} {user.displayName}
             </h5>
             <div className="flex items-center gap-6">
-              <NavbarProfile img={profile} />
+              <NavbarProfile img={user.profileImg} />
             </div>
         </nav>
      );

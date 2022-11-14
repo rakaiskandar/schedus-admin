@@ -4,8 +4,12 @@ import { Link } from "react-router-dom";
 import { Icon } from "@iconify/react";
 import EmptyTable from "../../../components/EmptyTable";
 import { useMemo } from "react";
+import { useRecoilValue } from "recoil";
+import { userState } from "../../../atoms/userAtom";
 
 const Schedule = () => {
+    const user = useRecoilValue(userState);
+
     const columns = useMemo(
         () => [
             {
@@ -38,7 +42,7 @@ const Schedule = () => {
             <title>Schedule | Schedus</title>
         </Helmet>
         
-        <NavbarAdmin/>
+        <NavbarAdmin user={user}/>
     
         <div className="layoutContainer">
             <div className="flex items-center justify-between">

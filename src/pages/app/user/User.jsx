@@ -4,9 +4,11 @@ import NavbarAdmin from "../../../components/NavbarAdmin";
 import { Icon } from "@iconify/react";
 import { useMemo, useState } from "react";
 import EmptyTable from "../../../components/EmptyTable";
+import { useRecoilValue } from "recoil";
+import { userState } from "../../../atoms/userAtom";
 
 const User = () => {
-    const [users, setUsers] = useState(false);
+    const user = useRecoilValue(userState);
 
     const columns = useMemo(
         () => [
@@ -54,7 +56,7 @@ const User = () => {
             <title>User | Schedus</title>
         </Helmet>
         
-        <NavbarAdmin/>
+        <NavbarAdmin user={user}/>
         
         <div className="layoutContainer">
             <div className="flex items-center justify-between">

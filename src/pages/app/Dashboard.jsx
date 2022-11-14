@@ -4,8 +4,16 @@ import icon1 from '../../assets/user.png';
 import icon2 from '../../assets/class.png';
 import icon3 from '../../assets/rooms.png';
 import icon4 from '../../assets/building.png';
+import { useLocation, useNavigate } from "react-router-dom";
+import { useRecoilValue } from "recoil";
+import { userState } from "../../atoms/userAtom";
+import { useEffect } from "react";
 
 const Dashboard = () => {
+    const location = useLocation();
+    const navigate = useNavigate();
+    const user = useRecoilValue(userState);
+
     const cardItem = [
         {
             image: icon1,
@@ -36,7 +44,7 @@ const Dashboard = () => {
                 <title>Home | Schedus</title>
             </Helmet>
             
-            <NavbarAdmin/>
+            <NavbarAdmin user={user}/>
             
             <div className="layoutContainer">
                 <h1 className="pageName">Home</h1>

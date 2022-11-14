@@ -4,9 +4,11 @@ import { Link } from "react-router-dom";
 import { Icon } from "@iconify/react";
 import { useMemo, useState } from "react";
 import EmptyTable from "../../../components/EmptyTable";
+import { useRecoilValue } from "recoil";
+import { userState } from "../../../atoms/userAtom";
 
 const ClassGrade = () => {
-    const [classes, setClasses] = useState(false);
+    const user = useRecoilValue(userState);
 
     const columns = useMemo(
        () => [
@@ -32,7 +34,7 @@ const ClassGrade = () => {
             <title>Class | Schedus</title>
         </Helmet>
         
-        <NavbarAdmin/>
+        <NavbarAdmin user={user}/>
         
         <div className="layoutContainer">
             <div className="flex items-center justify-between">

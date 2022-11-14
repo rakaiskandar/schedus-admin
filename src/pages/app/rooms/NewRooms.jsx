@@ -1,16 +1,20 @@
 import { Icon } from "@iconify/react";
 import { Helmet } from "react-helmet-async";
 import { Link } from "react-router-dom";
+import { useRecoilValue } from "recoil";
+import { userState } from "../../../atoms/userAtom";
 import NavbarAdmin from "../../../components/NavbarAdmin";
 
 const NewRooms = () => {
+    const user = useRecoilValue(userState);
+
     return ( 
         <>
             <Helmet>
                 <title>Create Rooms | Schedus</title>
             </Helmet>
 
-            <NavbarAdmin/>
+            <NavbarAdmin user={user}/>
 
             <div className="layoutContainer min-h-screen">
                 <Link 
@@ -19,6 +23,11 @@ const NewRooms = () => {
                 >
                  <Icon icon="akar-icons:chevron-left" className="inline"/>   
                 </Link>
+
+                <div className="contentContainer">
+                    <h1 className="pageName mb-6">New Rooms</h1>
+                </div>
+
             </div>
         </>
      );

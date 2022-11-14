@@ -1,16 +1,19 @@
 import { Icon } from "@iconify/react";
 import { Helmet } from "react-helmet-async";
 import { Link } from "react-router-dom";
+import { userState } from "../../../atoms/userAtom";
 import NavbarAdmin from "../../../components/NavbarAdmin";
 
 const NewSchedule = () => {
+    const user = useRecoilValue(userState);
+    
     return ( 
         <>
             <Helmet>
                 <title>Create Schedule | Schedus</title>
             </Helmet>
 
-            <NavbarAdmin/>
+            <NavbarAdmin user={user}/>
 
             <div className="layoutContainer min-h-screen">
                 <Link 
@@ -19,6 +22,11 @@ const NewSchedule = () => {
                 >
                  <Icon icon="akar-icons:chevron-left" className="inline"/>   
                 </Link>
+
+                <div className="contentContainer">
+                    <h1 className="pageName mb-6">New Schedule</h1>
+                </div>
+
             </div>
         </>
      );

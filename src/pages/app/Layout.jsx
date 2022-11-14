@@ -4,9 +4,12 @@ import { useState } from "react";
 import { Outlet, useNavigate } from "react-router-dom";
 import Sidebar from "../../components/Sidebar";
 import { auth } from "../../../firebase";
+import { useSetRecoilState } from "recoil";
+import { userState } from "../../atoms/userAtom";
 
 const Layout = () => {
     const navigate = useNavigate();
+    const setUser = useSetRecoilState(userState);
     const [loading, setLoading] = useState(false);
     
     useEffect(() => {
@@ -17,6 +20,15 @@ const Layout = () => {
                     navigate('/');
                     return;
                 }
+
+                setUser({
+                    uid: user.uid,
+                    displayName: user.name,
+                    profileImg: user.photoUrl,
+                    email: user.email,
+                    role: user.role
+                });
+
             })
         }catch(err){
             console.error(err);

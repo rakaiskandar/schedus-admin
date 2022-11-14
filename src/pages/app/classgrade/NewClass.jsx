@@ -1,9 +1,12 @@
 import { Icon } from "@iconify/react";
 import { Helmet } from "react-helmet-async";
 import { Link, useNavigate } from "react-router-dom";
+import { useRecoilValue } from "recoil";
+import { userState } from "../../../atoms/userAtom";
 import NavbarAdmin from "../../../components/NavbarAdmin";
 
 const NewClass = () => {
+    const user = useRecoilValue(userState);
     const navigate = useNavigate();
 
     return ( 
@@ -12,7 +15,7 @@ const NewClass = () => {
                 <title>Create Class | Schedus</title>
             </Helmet>
 
-            <NavbarAdmin/>
+            <NavbarAdmin user={user}/>
 
             <div className="layoutContainer min-h-screen">
                 <Link 
