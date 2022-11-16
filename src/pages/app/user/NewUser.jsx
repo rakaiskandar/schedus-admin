@@ -52,6 +52,17 @@ const NewUser = () => {
                         </div>
 
                         <div>
+                            <label htmlFor="password" className="font-medium">
+                                Password<span className="text-red-600">*</span>
+                            </label>
+                            <input 
+                            type="password"
+                            id="password" 
+                            className="addInput"
+                            placeholder="Password"/>
+                        </div>
+
+                        <div>
                             <label htmlFor="grade" className="font-medium">
                                 Grade<span className="text-red-600">*</span>
                             </label>
@@ -66,11 +77,14 @@ const NewUser = () => {
                             <label htmlFor="role" className="font-medium">
                                 Role<span className="text-red-600">*</span>
                             </label>
-                            <input 
-                            type="text"
-                            id="role" 
-                            className="addInput"
-                            placeholder="Class name"/>
+                            <select 
+                                type="text"
+                                id="role" 
+                                className="addInput"
+                                placeholder="Class name">
+                                <option value="admin">Admin</option>
+                                <option value="student">Student</option>
+                            </select>
                         </div>
 
                         <div className="my-1 justify-end flex gap-3 md:">
