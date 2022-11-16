@@ -10,6 +10,7 @@ import { useEffect } from 'react';
 import { useState } from 'react';
 import { collection, getDoc, getDocs, query, where } from 'firebase/firestore';
 import { firestoreDb } from '../../../firebase';
+import { Link } from 'react-router-dom';
 
 const Dashboard = () => {
   const user = useRecoilValue(userState);
@@ -47,21 +48,25 @@ const Dashboard = () => {
       image: icon1,
       title: 'Total User:',
       total: userLength,
+      path: '/app/user',
     },
     {
       image: icon2,
       title: 'Total Class:',
       total: classLength,
+      path: '/app/class',
     },
     {
       image: icon3,
       title: 'Total Rooms:',
       total: 100,
+      path: '/app/room',
     },
     {
       image: icon4,
       title: 'Total Building:',
       total: 100,
+      path: '/app/room',
     },
   ];
 
@@ -78,15 +83,17 @@ const Dashboard = () => {
 
         <div className="flex flex-col md:grid md:grid-cols-4 gap-3">
           {cardItem.map((item, i) => (
-            <div key={i} className="hover:scale-105 hover:bg-blue-100 transition-all duration-300 bg-white my-3 rounded-md p-6 shadow">
-              <div className="flex flex-row justify-start gap-4">
-                <img src={item.image} alt="card image" className="h-14" />
-                <div className="flex flex-col">
-                  <p className="text-md text-gray-400 font-medium">{item.title}</p>
-                  <h3 className="text-4xl font-semibold pt-1">{`${item.total ? item.total : '...'}`}</h3>
+            <Link to={item.path}>
+              <div key={i} className="hover:scale-105 hover:bg-blue-100 transition-all duration-300 bg-white my-3 rounded-md p-6 shadow">
+                <div className="flex flex-row justify-start gap-4">
+                  <img src={item.image} alt="card image" className="h-14" />
+                  <div className="flex flex-col">
+                    <p className="text-md text-gray-400 font-medium">{item.title}</p>
+                    <h3 className="text-4xl font-semibold pt-1">{`${item.total ? item.total : '...'}`}</h3>
+                  </div>
                 </div>
               </div>
-            </div>
+            </Link>
           ))}
         </div>
       </div>
