@@ -30,13 +30,16 @@ const NavbarAdmin = ({user}) => {
         }
     }, [])
 
+    // console.log(user);
+
     return ( 
         <nav className="hidden md:flex shadow-sm bg-white py-3 px-5 border-b-[1px] border-b-gray-300 items-center sticky top-0 z-30 justify-between">
             <h5 className="text-lg font-semibold">
-                <span className="text-3xl">{greeting.emoji}</span>{greeting.greet} {user.displayName}
+                <span className="text-3xl">{greeting.emoji}</span>{greeting.greet} 
+                <span>{`${user.displayName ? user.displayName : "..."}`}</span>
             </h5>
             <div className="flex items-center gap-6">
-              <NavbarProfile img={user.profileImg} />
+              <NavbarProfile img={`${user.profileImg ? user.profileImg : profile}`} />
             </div>
         </nav>
      );
