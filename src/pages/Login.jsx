@@ -29,12 +29,15 @@ const Login = () => {
         }catch(error){
             if(error.code.includes("not-found")){
                 toast.update(id, {render:"Sorry, account not found", type:"error", isLoading:false, autoClose:3000});
+                navigate('/');
                 return;
             }else if(error.code.includes("wrong-password")){
                 toast.update(id, {render:"Email or password not correct", type:"error", isLoading:false, autoClose:3000});
+                navigate('/');
                 return;
             }
             toast.update(id, {render:"Error", type:"error", isLoading:false, autoClose:3000});
+            navigate('/');
             console.log(error);
         }finally{
             setLoading(false);
