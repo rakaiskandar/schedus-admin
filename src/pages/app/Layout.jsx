@@ -19,6 +19,11 @@ const Layout = () => {
             if(!querySnapshot.empty){
                 const data = querySnapshot.docs[0].data()
                 
+                if(data.role !== "admin") {
+                    navigate('/');
+                    return;
+                }
+                
                 setUser({
                     uid: users.uid,
                     displayName: data.name,
@@ -26,6 +31,7 @@ const Layout = () => {
                     email: users.email,
                     role: data.role
                 })
+
             }            
         });
         return unsubscribe
