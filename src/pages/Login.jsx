@@ -15,7 +15,7 @@ const Login = () => {
 
     const loginHandler = async (ev) => {
         ev.preventDefault();
-        const id = toast.loading("Tolong tunggu...")
+        const id = toast.loading("Loading...")
         setLoading(true);
 
         try{
@@ -24,7 +24,7 @@ const Login = () => {
                 emailRef.current.value,
                 passRef.current.value
             );
-            toast.update(id, {render:"Login success, Welcome!", type:"success", isLoading:false, autoClose:2000});
+            toast.update(id, {render:"Login success, Welcome", type:"success", isLoading:false, autoClose:2000});
             navigate('/app/home');
         }catch(error){
             if(error.code.includes("not-found")){
