@@ -18,22 +18,30 @@ const Login = () => {
     const id = toast.loading('Tolong tunggu...');
     setLoading(true);
 
-    try {
-      await signInWithEmailAndPassword(auth, emailRef.current.value, passRef.current.value);
-      toast.update(id, { render: 'Login success, Welcome!', type: 'success', isLoading: false, autoClose: 2000 });
-      navigate('/app/home');
-    } catch (error) {
-      if (error.code.includes('not-found')) {
-        toast.update(id, { render: 'Sorry, account not found', type: 'error', isLoading: false, autoClose: 3000 });
-        return;
-      } else if (error.code.includes('wrong-password')) {
-        toast.update(id, { render: 'Email or password not correct', type: 'error', isLoading: false, autoClose: 3000 });
-        return;
-      }
-      toast.update(id, { render: 'Error', type: 'error', isLoading: false, autoClose: 3000 });
-      console.log(error);
-    } finally {
-      setLoading(false);
+        try{
+            await signInWithEmailAndPassword(
+                auth,
+                emailRef.current.value,
+                passRef.current.value
+            );
+            toast.update(id, {render:"Login success, Welcome!", type:"success", isLoading:false, autoClose:2000});
+            navigate('/app/home');
+        }catch(error){
+            if(error.code.includes("not-found")){
+                toast.update(id, {render:"Sorry, account not found", type:"error", isLoading:false, autoClose:3000});
+                navigate('/');
+                return;
+            }else if(error.code.includes("wrong-password")){
+                toast.update(id, {render:"Email or password not correct", type:"error", isLoading:false, autoClose:3000});
+                navigate('/');
+                return;
+            }
+            toast.update(id, {render:"Error", type:"error", isLoading:false, autoClose:3000});
+            navigate('/');
+            console.log(error);
+        }finally{
+            setLoading(false);
+        }
     }
   };
 
