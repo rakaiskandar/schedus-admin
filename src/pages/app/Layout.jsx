@@ -7,6 +7,7 @@ import { auth, firestoreDb } from "../../../firebase";
 import { useSetRecoilState } from "recoil";
 import { userState } from "../../atoms/userAtom";
 import { collection, onSnapshot, query, where } from "firebase/firestore";
+import { toast } from "react-toastify";
 
 const Layout = () => {
     const navigate = useNavigate();
@@ -20,6 +21,7 @@ const Layout = () => {
                 const data = querySnapshot.docs[0].data()
                 
                 if(data.role !== "admin") {
+                    toast.error("You are not admin" ,{isLoading:false,autoClose:2000})
                     navigate('/');
                     return;
                 }
