@@ -7,7 +7,6 @@ import Layout from "./pages/app/Layout"
 import Rooms from "./pages/app/rooms/Rooms"
 import NewSchedule from "./pages/app/schedule/NewSchedule"
 import Schedule from "./pages/app/schedule/Schedule"
-import NewUser from "./pages/app/user/NewUser"
 import User from "./pages/app/user/User"
 import Login from "./pages/Login"
 import NewRooms from "./pages/app/rooms/NewRooms"
@@ -28,7 +27,6 @@ function App() {
               <Route index element={<Dashboard />} />
               <Route path="home" element={<Dashboard />} />
               <Route path="user" element={<User />} />
-              <Route path="user/new" element={<NewUser />} />
               <Route path="class" element={<ClassGrade />} />
               <Route path="class/new" element={<NewClass />} />
               <Route path="schedule" element={<Schedule />} />

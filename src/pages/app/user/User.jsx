@@ -61,10 +61,6 @@ const User = () => {
         <div className="layoutContainer">
             <div className="flex items-center justify-between">
                 <h1 className="pageName">User</h1>
-                <Link to="/app/user/new" className="addButton">
-                    <Icon icon="akar-icons:plus" width="30" height="30" />
-                    New User
-                </Link>
             </div>
 
             <div className="contentContainer">
