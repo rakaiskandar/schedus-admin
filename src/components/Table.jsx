@@ -23,24 +23,26 @@ export default function Table({ columns, data, filterInput, filterColumn }) {
     } = useTable({ columns, data }, useFilters, useSortBy, usePagination);
 
     useEffect(() => {
-    
         const value = filterInput || "";
         setFilter(filterColumn, value);
     }, [filterInput]);
-    
-    const rowClickHandler = (id) =>{
+
+    const rowClickHandler = (id) => {
         navigate(id)
-      }
+    }
 
     return (
         <>
-            <table {...getTableProps()} className=" my-4 border-collapse bg-white text-sm w-full text-left">
+            <table
+                {...getTableProps()}
+                className=" my-4 border-collapse bg-white text-sm w-full text-left"
+            >
                 <thead>
                     {headerGroups.map((headerGroup) => (
                         <tr {...headerGroup.getHeaderGroupProps()}>
-                            {...headerGroup.headers.map((column) => (
+                            {headerGroup.headers.map((column) => (
                                 <th
-                                    {...column.getHeaderGroupProps(column.getSortByToggleProps())}
+                                    {...column.getHeaderProps(column.getSortByToggleProps())}
                                     className="font-semibold rounded-sm p-2"
                                 >
                                     {column.render("Header")}{" "}
@@ -68,9 +70,11 @@ export default function Table({ columns, data, filterInput, filterColumn }) {
                     {page.map((row, i) => {
                         prepareRow(row);
                         return (
-                            <tr {...getRowProps()}
+                            <tr
+                                {...row.getRowProps()}
                                 className="border-y-[1px] text-gray-800 border-gray-300 cursor-pointer hover:bg-purple-100  helveticaFonts"
-                                onClick={()=>rowClickHandler(row.original.id)}>
+                                onClick={() => rowClickHandler(row.original.id)}
+                            >
                                 {row.cells.map((cell) => {
                                     return (
                                         <td {...cell.getCellProps()} className="px-2 py-3">
@@ -102,7 +106,7 @@ export default function Table({ columns, data, filterInput, filterColumn }) {
                     <Icon
                         icon="cil:chevron-circle-right-alt"
                         width="28"
-                        className={`${!canNextPage ? "opacity-40 cursor-auto" : "hover:text-blue-600 text-gray-700"
+                        className={`${!canNextPage ? "opacity-40 cursor-auto" : "hover:text-purple-600 text-gray-700"
                             } cursor-pointer`}
                     />
                 </button>
