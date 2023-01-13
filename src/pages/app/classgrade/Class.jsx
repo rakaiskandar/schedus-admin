@@ -19,11 +19,11 @@ const ClassGrade = () => {
         const q = query(collection(firestoreDb, 'classgrade'));
         const docSnap = await getDocs(q);
         const data = docSnap.docs
-        console.log(data);
         const mapped = data.map(d => {
             let tmpGrade = d.data().grade
+            let tmpId = d.id
             return d.data().classname.map(c => {
-                return { name: c, grade: tmpGrade }
+                return { name: c, grade: tmpGrade, id: tmpId }
             })
         }).reduce((a, e) => [...a, ...e], [])
         setClassD(mapped)

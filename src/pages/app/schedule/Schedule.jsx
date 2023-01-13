@@ -6,9 +6,32 @@ import EmptyTable from "../../../components/EmptyTable";
 import { useMemo } from "react";
 import { useRecoilValue } from "recoil";
 import { userState } from "../../../atoms/userAtom";
+import { useState } from "react";
+import { collection, getDocs, query } from "firebase/firestore";
+import { firestoreDb } from "../../../../firebase";
+import { useEffect } from "react";
+import mapToArray from "../../../helpers/mapToArray";
+import Table from "../../../components/Table";
 
 const Schedule = () => {
     const user = useRecoilValue(userState);
+    const [scheduleD, setscheduleD] = useState([]);
+    const [filterChange, setFilterChange] = useState("");
+
+    const getScheduleData = async () => {
+        const q = query(collection(firestoreDb, 'yourschedule'));
+        const docSnap = await getDocs(q);
+        const data = docSnap.docs;
+        setscheduleD(mapToArray(data));
+    }
+
+    useEffect(() => {
+        try{
+            getScheduleData()
+        }catch(err){
+            console.log(err);
+        }
+    }, []);
 
     const columns = useMemo(
         () => [
@@ -27,14 +50,54 @@ const Schedule = () => {
                 )
             },
             {
-                Header: "Lesson",
-                accessor: "lesson",
+                Header: "Grade",
+                accessor: "grade",
+                Cell: ({ cell: {value} }) => (
+                    <p className={`text-[13px]`}>{value}</p>
+                )
+            },
+            {
+                Header: "Subject Hour 1-2",
+                accessor: "subjectHour1til2",
+                Cell: ({ cell: {value} }) => (
+                    <p className={`text-[13px]`}>{value}</p>
+                )
+            },
+            {
+                Header: "Subject Hour 3-4",
+                accessor: "subjectHour3til4",
+                Cell: ({ cell: {value} }) => (
+                    <p className={`text-[13px]`}>{value}</p>
+                )
+            },
+            {
+                Header: "Subject Hour 5-6",
+                accessor: "subjectHour5til6",
+                Cell: ({ cell: {value} }) => (
+                    <p className={`text-[13px]`}>{value}</p>
+                )
+            },
+            {
+                Header: "Subject Hour 7-8",
+                accessor: "subjectHour7til8",
+                Cell: ({ cell: {value} }) => (
+                    <p className={`text-[13px]`}>{value}</p>
+                )
+            },
+            {
+                Header: "Subject Hour 9-10",
+                accessor: "subjectHour9til10",
                 Cell: ({ cell: {value} }) => (
                     <p className={`text-[13px]`}>{value}</p>
                 )
             },
         ]
     );
+
+    const handleFilterChange = (e) => {
+        const value = e.target.value || "";
+        setFilterChange(value);
+    }
 
     return ( 
         <>
@@ -59,10 +122,15 @@ const Schedule = () => {
                     type="text"
                     placeholder="Find Schedule"
                     className="w-full focus:border-blue-600 text-sm outline-none border-[1px] border-gray-300 transition-all duration-300 ease-out  rounded p-2"
+                    onChange={handleFilterChange}
                 />
                 </div>
 
-                <EmptyTable columns={columns}/>
+                {!scheduleD.length ? ( 
+                    <EmptyTable columns={columns}/>
+                ) : (
+                    <Table columns={columns} data={scheduleD} filterColumn="grade" filterInput={filterChange}/>
+                ) }
             </div>
         </div>
         </>
