@@ -13,6 +13,9 @@ import NewRooms from "./pages/app/rooms/NewRooms"
 import { ToastContainer } from "react-toastify"
 import "react-toastify/dist/ReactToastify.css"
 import { RecoilRoot } from "recoil"
+import EditClass from "./pages/app/classgrade/EditClass"
+import EditUser from "./pages/app/user/EditUser"
+import EditSchedule from "./pages/app/schedule/EditSchedule"
 
 function App() {
 
@@ -27,10 +30,13 @@ function App() {
               <Route index element={<Dashboard />} />
               <Route path="home" element={<Dashboard />} />
               <Route path="user" element={<User />} />
+              <Route path="user/:id" element={<EditUser/>}/>
               <Route path="class" element={<ClassGrade />} />
               <Route path="class/new" element={<NewClass />} />
+              <Route path="class/:id" element={<EditClass/>}/>
               <Route path="schedule" element={<Schedule />} />
               <Route path="schedule/new" element={<NewSchedule />} />
+              <Route path="schedule/:id" element={<EditSchedule/>}/>
               <Route path="room" element={<Rooms />} />
               <Route path="room/new" element={<NewRooms />} />
               <Route />
