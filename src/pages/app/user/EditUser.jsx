@@ -1,5 +1,5 @@
 import { Icon } from "@iconify/react";
-import { doc, getDoc } from "firebase/firestore";
+import { doc, getDoc, updateDoc } from "firebase/firestore";
 import { useEffect } from "react";
 import { useState } from "react";
 import { Helmet } from "react-helmet-async";
@@ -8,10 +8,17 @@ import { useRecoilValue } from "recoil";
 import { firestoreDb } from "../../../../firebase";
 import { userState } from "../../../atoms/userAtom";
 import NavbarAdmin from "../../../components/NavbarAdmin";
+import { useForm } from "react-hook-form";
+import { toast } from "react-toastify";
 
 const EditUser = () => {
     let { id } = useParams();
 
+    const {
+        register,
+        handleSubmit,
+        formState: { errors }
+    } = useForm();
     const user = useRecoilValue(userState);
     const navigate = useNavigate();
     const [loading, setLoading] = useState(false);
@@ -39,6 +46,26 @@ const EditUser = () => {
         }
     }, [])
 
+    const submitHandler = async(data) => {
+        setLoading(true)
+        const id = toast.loading("Edit user...")
+        try{
+            await updateDoc(doc(firestoreDb, "users", userD.id), {
+                email: data.email,
+                name: data.name,
+                nis: data.nis,
+                grade: data.grade,
+                role: data.role,
+            })
+            toast.update(id, { render: "Edit user success", type: "success", isLoading: false, autoClose: 200 })
+        }catch(err){
+            toast.update(id, { render: "Error!", type: "error", isLoading: false, autoClose: 200 })
+            console.log(err)
+        }finally{
+            setLoading(false)
+        }
+    }
+
     return (
         <>
             <Helmet>
@@ -60,7 +87,7 @@ const EditUser = () => {
                         <>
                             <h1 className="pageName mb-6">Edit User</h1>
 
-                            <form className="flex flex-col gap-4">
+                            <form className="flex flex-col gap-4" onSubmit={handleSubmit(submitHandler)}>
                                 <div>
                                     <label htmlFor="email" className="font-medium">
                                         Email<span className="text-red-600">*</span>
@@ -70,7 +97,13 @@ const EditUser = () => {
                                         id="email"
                                         className="addInput"
                                         placeholder="Email" 
-                                        defaultValue={userD?.email}/>
+                                        defaultValue={userD?.email}
+                                        {...register("email", { required: true })}/>
+                                        {errors.email && (
+                                            <span className="text-[13px] ml-1 text-red-500">
+                                                email required fill
+                                            </span>
+                                        )}
                                 </div>
 
                                 <div>
@@ -82,7 +115,13 @@ const EditUser = () => {
                                         id="name"
                                         className="addInput"
                                         placeholder="Name" 
-                                        defaultValue={userD?.name}/>
+                                        defaultValue={userD?.name}
+                                        {...register("name", { required: true })}/>
+                                        {errors.name && (
+                                            <span className="text-[13px] ml-1 text-red-500">
+                                                name required fill
+                                            </span>
+                                        )}
                                 </div>
 
                                 <div>
@@ -94,7 +133,13 @@ const EditUser = () => {
                                         id="nis"
                                         className="addInput"
                                         placeholder="NIS" 
-                                        defaultValue={userD?.nis}/>
+                                        defaultValue={userD?.nis}
+                                        {...register("nis", { required: true })}/>
+                                        {errors.nis && (
+                                            <span className="text-[13px] ml-1 text-red-500">
+                                                nis required fill
+                                            </span>
+                                        )}
                                 </div>
 
                                 <div>
@@ -106,7 +151,13 @@ const EditUser = () => {
                                         id="grade"
                                         className="addInput"
                                         placeholder="Grade name" 
-                                        defaultValue={userD?.grade}/>
+                                        defaultValue={userD?.grade}
+                                        {...register("grade", { required: true })}/>
+                                        {errors.grade && (
+                                            <span className="text-[13px] ml-1 text-red-500">
+                                                grade required fill
+                                            </span>
+                                        )}
                                 </div>
 
                                 <div>
@@ -118,7 +169,13 @@ const EditUser = () => {
                                         id="role"
                                         className="addInput"
                                         placeholder="Role" 
-                                        defaultValue={userD?.role}/>
+                                        defaultValue={userD?.role}
+                                        {...register("role", { required: true })}/>
+                                        {errors.role && (
+                                            <span className="text-[13px] ml-1 text-red-500">
+                                                role required fill
+                                            </span>
+                                        )}
                                 </div>
 
                                 <div className="my-1 justify-end flex gap-3 md:">
@@ -132,7 +189,7 @@ const EditUser = () => {
                                         type="submit"
                                         className={`createBtn`}
                                     >
-                                        Create Class
+                                        Edit User
                                     </button>
                                 </div>
                             </form>
