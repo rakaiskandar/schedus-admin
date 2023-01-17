@@ -26,9 +26,9 @@ const Schedule = () => {
     }
 
     useEffect(() => {
-        try{
+        try {
             getScheduleData()
-        }catch(err){
+        } catch (err) {
             console.log(err);
         }
     }, []);
@@ -38,56 +38,56 @@ const Schedule = () => {
             {
                 Header: "Block",
                 accessor: "block",
-                Cell: ({ cell: {value} }) => (
+                Cell: ({ cell: { value } }) => (
                     <p className={`text-[13px]`}>{value}</p>
                 )
             },
             {
                 Header: "Day",
                 accessor: "day",
-                Cell: ({ cell: {value} }) => (
+                Cell: ({ cell: { value } }) => (
                     <p className={`max-w-[160px]`}>{value}</p>
                 )
             },
             {
                 Header: "Grade",
                 accessor: "grade",
-                Cell: ({ cell: {value} }) => (
+                Cell: ({ cell: { value } }) => (
                     <p className={`text-[13px]`}>{value}</p>
                 )
             },
             {
                 Header: "Subject Hour 1-2",
                 accessor: "subjectHour1til2",
-                Cell: ({ cell: {value} }) => (
+                Cell: ({ cell: { value } }) => (
                     <p className={`text-[13px]`}>{value}</p>
                 )
             },
             {
                 Header: "Subject Hour 3-4",
                 accessor: "subjectHour3til4",
-                Cell: ({ cell: {value} }) => (
+                Cell: ({ cell: { value } }) => (
                     <p className={`text-[13px]`}>{value}</p>
                 )
             },
             {
                 Header: "Subject Hour 5-6",
                 accessor: "subjectHour5til6",
-                Cell: ({ cell: {value} }) => (
+                Cell: ({ cell: { value } }) => (
                     <p className={`text-[13px]`}>{value}</p>
                 )
             },
             {
                 Header: "Subject Hour 7-8",
                 accessor: "subjectHour7til8",
-                Cell: ({ cell: {value} }) => (
+                Cell: ({ cell: { value } }) => (
                     <p className={`text-[13px]`}>{value}</p>
                 )
             },
             {
                 Header: "Subject Hour 9-10",
                 accessor: "subjectHour9til10",
-                Cell: ({ cell: {value} }) => (
+                Cell: ({ cell: { value } }) => (
                     <p className={`text-[13px]`}>{value}</p>
                 )
             },
@@ -99,42 +99,42 @@ const Schedule = () => {
         setFilterChange(value);
     }
 
-    return ( 
+    return (
         <>
-        <Helmet>
-            <title>Schedule | Schedus</title>
-        </Helmet>
-        
-        <NavbarAdmin user={user}/>
-    
-        <div className="layoutContainer">
-            <div className="flex items-center justify-between">
-                <h1 className="pageName">Schedule</h1>
-                <Link to="/app/schedule/new" className="addButton">
-                    <Icon icon="akar-icons:plus" width="30" height="30" />
-                    New Schedule
-                </Link>
-            </div>
+            <Helmet>
+                <title>Schedule | Schedus</title>
+            </Helmet>
 
-            <div className="contentContainer">
-                <div className="flex w-full my-2">
-                <input
-                    type="text"
-                    placeholder="Find Schedule"
-                    className="w-full focus:border-blue-600 text-sm outline-none border-[1px] border-gray-300 transition-all duration-300 ease-out  rounded p-2"
-                    onChange={handleFilterChange}
-                />
+            <NavbarAdmin user={user} />
+
+            <div className="layoutContainer">
+                <div className="flex items-center justify-between">
+                    <h1 className="pageName">Schedule</h1>
+                    <Link to="/app/schedule/new" className="addButton">
+                        <Icon icon="akar-icons:plus" width="30" height="30" />
+                        New Schedule
+                    </Link>
                 </div>
 
-                {!scheduleD.length ? ( 
-                    <EmptyTable columns={columns}/>
-                ) : (
-                    <Table columns={columns} data={scheduleD} filterColumn="grade" filterInput={filterChange}/>
-                ) }
+                <div className="contentContainer">
+                    <div className="flex w-full my-2">
+                        <input
+                            type="text"
+                            placeholder="Find Schedule"
+                            className="w-full focus:border-blue-600 text-sm outline-none border-[1px] border-gray-300 transition-all duration-300 ease-out  rounded p-2"
+                            onChange={handleFilterChange}
+                        />
+                    </div>
+
+                    {!scheduleD.length ? (
+                        <EmptyTable columns={columns} />
+                    ) : (
+                        <Table columns={columns} data={scheduleD} filterColumn="grade" filterInput={filterChange} />
+                    )}
+                </div>
             </div>
-        </div>
         </>
     );
 }
- 
+
 export default Schedule;

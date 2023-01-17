@@ -7,7 +7,7 @@ import NavbarAdmin from "../../../components/NavbarAdmin";
 import { useForm } from "react-hook-form";
 import { useState } from "react";
 import { toast } from "react-toastify";
-import { addDoc, collection } from "firebase/firestore";
+import { addDoc, collection, doc, updateDoc } from "firebase/firestore";
 import { firestoreDb } from "../../../../firebase";
 
 const NewSchedule = () => {
@@ -24,7 +24,7 @@ const NewSchedule = () => {
         setLoading(true)
         const id = toast.loading("Add schedule...")
         try{
-            await addDoc(collection(firestoreDb, "yourschedule"), {
+            const docref = await addDoc(collection(firestoreDb, "yourschedule"), {
                 block: data.block,
                 day: data.day,
                 grade: data.grade,
@@ -34,11 +34,14 @@ const NewSchedule = () => {
                 subjectHour7til8: data.hour7til8,
                 subjectHour9til10: data.hour9til10,
             })
+            await updateDoc(doc(firestoreDb, "yourschedule", docref.id), {
+                ysid: docref.id
+            })
             toast.update(id, {render: "Add schedule success!", type: "success", isLoading: false, autoClose: 200})
             navigate("/app/schedule")
         }catch(err){
             toast.update(id, {render: "Error!", type: "error", isLoading: false, autoClose: 200})
-            console.log(err)
+            console.error(err)
         }finally{
             setLoading(false)
         }

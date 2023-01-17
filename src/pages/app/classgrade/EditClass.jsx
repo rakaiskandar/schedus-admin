@@ -19,7 +19,7 @@ const EditClass = () => {
     const [firstLoading, setFirstLoading] = useState(true);
 
     const getClass = async () => {
-        const docRef = doc(firestoreDb, 'classgrade');
+        const docRef = doc(firestoreDb, 'classgrade', id);
         const docSnap = await getDoc(docRef);
         
         return { ...docSnap.data(), id: docSnap.id }
@@ -58,7 +58,7 @@ const EditClass = () => {
                 <div className="contentContainer">
                     {!firstLoading && classes ? (
                         <>
-                            <h1 className="pageName mb-6">New Class</h1>
+                            <h1 className="pageName mb-6">Edit Class</h1>
 
                             <form className="flex flex-col gap-4">
                                 <div>
