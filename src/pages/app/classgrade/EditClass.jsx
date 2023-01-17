@@ -1,9 +1,11 @@
 import { Icon } from "@iconify/react";
-import { doc, getDoc } from "firebase/firestore";
+import { doc, getDoc, updateDoc } from "firebase/firestore";
 import { useEffect } from "react";
 import { useState } from "react";
 import { Helmet } from "react-helmet-async";
+import { useForm } from "react-hook-form";
 import { Link, useNavigate, useParams } from "react-router-dom";
+import { toast } from "react-toastify";
 import { useRecoilValue } from "recoil";
 import { firestoreDb } from "../../../../firebase";
 import { userState } from "../../../atoms/userAtom";
@@ -12,6 +14,11 @@ import NavbarAdmin from "../../../components/NavbarAdmin";
 const EditClass = () => {
     let { id } = useParams();
 
+    const {
+        register, 
+        handleSubmit,
+        formState: { errors }
+    } = useForm();
     const user = useRecoilValue(userState);
     const navigate = useNavigate();
     const [loading, setLoading] = useState(false);
@@ -39,6 +46,23 @@ const EditClass = () => {
         }
     }, [])
 
+    const submitHandler = async(data) => {
+        setLoading(true)
+        const id = toast.loading("Edit class...")
+        try {
+            await updateDoc(doc(firestoreDb, "classgrade", classes.id), {
+                classname: data.classname,
+                grade: data.grade
+            })
+            toast.update(id, { render: "Edit class success", type: "success", isLoading: false, autoClose: 200 })
+        } catch (err) {
+            toast.update(id, { render: "Error!", type: "error", isLoading: false, autoClose: 200 })
+            console.error(err)
+        }finally{
+            setLoading(false)
+        }
+    }
+
     return (
         <>
             <Helmet>
@@ -60,7 +84,7 @@ const EditClass = () => {
                         <>
                             <h1 className="pageName mb-6">Edit Class</h1>
 
-                            <form className="flex flex-col gap-4">
+                            <form className="flex flex-col gap-4" onSubmit={handleSubmit(submitHandler)}>
                                 <div>
                                     <label htmlFor="grade" className="font-medium">
                                         Grade Name<span className="text-red-600">*</span>
@@ -70,7 +94,13 @@ const EditClass = () => {
                                         id="grade"
                                         className="addInput"
                                         placeholder="Grade name" 
-                                        defaultValue={classes?.grade}/>
+                                        defaultValue={classes?.grade}
+                                        {...register("grade", { required:true })}/>
+                                        {errors.grade && (
+                                            <span className="text-[13px] ml-1 text-red-500">
+                                                grade required fill
+                                            </span>
+                                        )}
                                 </div>
 
                                 <div>
@@ -82,7 +112,13 @@ const EditClass = () => {
                                         id="classname"
                                         className="addInput"
                                         placeholder="Class name" 
-                                        defaultValue={classes?.classname}/>
+                                        defaultValue={classes?.classname}
+                                        {...register("classname", { required:true })}/>
+                                        {errors.classname && (
+                                            <span className="text-[13px] ml-1 text-red-500">
+                                                grade required fill
+                                            </span>
+                                        )}
                                 </div>
 
                                 <div className="my-1 justify-end flex gap-3 md:">

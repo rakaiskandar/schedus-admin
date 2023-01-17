@@ -58,11 +58,12 @@ const EditLesson = () => {
             toast.update(id, { render: "Edit lesson success", type: "success", isLoading: false, autoClose: 200 })
         }catch(err){
             toast.update(id, { render: "Error!", type: "error", isLoading: false, autoClose: 200 })
-            console.error(err);
+            console.error(err)
         }finally{
             setLoading(false)
         }
     }
+
     return (
         <>
             <Helmet>

@@ -1,7 +1,6 @@
 import { HelmetProvider } from "react-helmet-async"
 import { BrowserRouter, Routes, Route } from "react-router-dom"
 import ClassGrade from "./pages/app/classgrade/Class"
-import NewClass from "./pages/app/classgrade/NewClass"
 import Dashboard from "./pages/app/Dashboard"
 import Layout from "./pages/app/Layout"
 import Rooms from "./pages/app/rooms/Rooms"
@@ -35,7 +34,6 @@ function App() {
               <Route path="user" element={<User />} />
               <Route path="user/:id" element={<EditUser/>}/>
               <Route path="class" element={<ClassGrade />} />
-              <Route path="class/new" element={<NewClass />} />
               <Route path="class/:id" element={<EditClass/>}/>
               <Route path="lesson" element={<Lesson/>}/>
               <Route path="lesson/new" element={<NewLesson/>}/>

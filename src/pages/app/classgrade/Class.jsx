@@ -1,7 +1,5 @@
 import { Helmet } from "react-helmet-async";
 import NavbarAdmin from "../../../components/NavbarAdmin";
-import { Link } from "react-router-dom";
-import { Icon } from "@iconify/react";
 import { useEffect, useMemo, useState } from "react";
 import EmptyTable from "../../../components/EmptyTable";
 import { useRecoilValue } from "recoil";
@@ -72,10 +70,6 @@ const ClassGrade = () => {
             <div className="layoutContainer">
                 <div className="flex items-center justify-between">
                     <h1 className="pageName">Class</h1>
-                    <Link to="/app/class/new" className="addButton">
-                        <Icon icon="akar-icons:plus" width="30" height="30" />
-                        New Class
-                    </Link>
                 </div>
 
                 <div className="contentContainer">
