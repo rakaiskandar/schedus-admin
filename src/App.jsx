@@ -16,6 +16,9 @@ import { RecoilRoot } from "recoil"
 import EditClass from "./pages/app/classgrade/EditClass"
 import EditUser from "./pages/app/user/EditUser"
 import EditSchedule from "./pages/app/schedule/EditSchedule"
+import Lesson from "./pages/app/lessons/Lesson"
+import NewLesson from "./pages/app/lessons/NewLesson"
+import EditLesson from "./pages/app/lessons/EditLesson"
 
 function App() {
 
@@ -34,6 +37,9 @@ function App() {
               <Route path="class" element={<ClassGrade />} />
               <Route path="class/new" element={<NewClass />} />
               <Route path="class/:id" element={<EditClass/>}/>
+              <Route path="lesson" element={<Lesson/>}/>
+              <Route path="lesson/new" element={<NewLesson/>}/>
+              <Route path="lesson/:id" element={<EditLesson/>}/>
               <Route path="schedule" element={<Schedule />} />
               <Route path="schedule/new" element={<NewSchedule />} />
               <Route path="schedule/:id" element={<EditSchedule/>}/>

@@ -27,6 +27,11 @@ const Sidebar = () => {
             icon: "fluent:class-20-regular",
         },
         {
+            itemName: "Lessons",
+            itemPath: "/app/lesson",
+            icon: "mdi:learn-outline"
+        },
+        {
             itemName: "Schedule",
             itemPath: "/app/schedule",
             icon: "ant-design:schedule-outlined",
