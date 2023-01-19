@@ -14,7 +14,6 @@ import { Link } from 'react-router-dom';
 
 const Dashboard = () => {
   const user = useRecoilValue(userState);
-  const [loading, setLoading] = useState(false);
   const [userLength, setUserLength] = useState(null);
   const [classLength, setClassLength] = useState(null);
 
