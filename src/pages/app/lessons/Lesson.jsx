@@ -27,7 +27,7 @@ const Lesson = () => {
 
     useEffect(() => {
         try {
-            getLessonData()
+            getLessonData();
         } catch (err) {
             console.error(err);
         }
@@ -63,10 +63,11 @@ const Lesson = () => {
         const value = e.target.value || "";
         setFilterChange(value);
     }
+
     return (
         <>
             <Helmet>
-                Lessons | Schedus
+                <title>Lessons | Schedus</title>
             </Helmet>
 
             <NavbarAdmin user={user} />
@@ -93,7 +94,7 @@ const Lesson = () => {
                     {!lesson.length ? (
                         <EmptyTable columns={columns} />
                     ) : (
-                        <Table columns={columns} data={lesson} filterColumn="subject" filterInput={filterChange} />
+                        <Table columns={columns} data={lesson} filterColumn="teacherName" filterInput={filterChange} />
                     )}
 
                 </div>
