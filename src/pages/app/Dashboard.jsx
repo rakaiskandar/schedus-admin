@@ -16,10 +16,14 @@ const Dashboard = () => {
   const user = useRecoilValue(userState);
   const [userLength, setUserLength] = useState(null);
   const [classLength, setClassLength] = useState(null);
+  const [roomsLength, setRoomsLength] = useState(null);
+  const [buildingLength, setBuildingLength] = useState(null);
 
   useEffect(() => {
     getUserLength();
     getClassLength();
+    getRoomsLength();
+    getBuildingLength();
   }, []);
 
   const getUserLength = async () => {
@@ -42,6 +46,18 @@ const Dashboard = () => {
     setClassLength(data ? data : 0);
   };
 
+  const getRoomsLength = async () => {
+    const q = query(collection(firestoreDb, 'rooms'));
+    const docSnap = await getDocs(q);
+    setRoomsLength(docSnap.docs.length ? docSnap.docs.length : 0);
+  }
+
+  const getBuildingLength = async () => {
+    const q = query(collection(firestoreDb, 'building'));
+    const docSnap = await getDocs(q);
+    setBuildingLength(docSnap.docs.length ? docSnap.docs.length : 0);
+  }
+
   const cardItem = [
     {
       image: icon1,
@@ -58,13 +74,13 @@ const Dashboard = () => {
     {
       image: icon3,
       title: 'Total Rooms:',
-      total: 100,
+      total: roomsLength,
       path: '/app/room',
     },
     {
       image: icon4,
       title: 'Total Building:',
-      total: 100,
+      total: buildingLength,
       path: '/app/room',
     },
   ];
