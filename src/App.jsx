@@ -18,6 +18,7 @@ import EditSchedule from "./pages/app/schedule/EditSchedule"
 import Lesson from "./pages/app/lessons/Lesson"
 import NewLesson from "./pages/app/lessons/NewLesson"
 import EditLesson from "./pages/app/lessons/EditLesson"
+import EditRooms from "./pages/app/rooms/EditRooms"
 
 function App() {
 
@@ -43,7 +44,7 @@ function App() {
               <Route path="schedule/:id" element={<EditSchedule/>}/>
               <Route path="room" element={<Rooms />} />
               <Route path="room/new" element={<NewRooms />} />
-              <Route />
+              <Route path="room/:id" element={<EditRooms/>}/>
             </Route>
           </Routes>
         </BrowserRouter>
