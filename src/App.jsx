@@ -12,13 +12,13 @@ import NewRooms from "./pages/app/rooms/NewRooms"
 import { ToastContainer } from "react-toastify"
 import "react-toastify/dist/ReactToastify.css"
 import { RecoilRoot } from "recoil"
-import EditClass from "./pages/app/classgrade/EditClass"
 import EditUser from "./pages/app/user/EditUser"
 import EditSchedule from "./pages/app/schedule/EditSchedule"
 import Lesson from "./pages/app/lessons/Lesson"
 import NewLesson from "./pages/app/lessons/NewLesson"
 import EditLesson from "./pages/app/lessons/EditLesson"
 import EditRooms from "./pages/app/rooms/EditRooms"
+import DetailClass from "./pages/app/classgrade/DetailClass"
 
 function App() {
 
@@ -35,7 +35,7 @@ function App() {
               <Route path="user" element={<User />} />
               <Route path="user/:id" element={<EditUser/>}/>
               <Route path="class" element={<ClassGrade />} />
-              <Route path="class/:id" element={<EditClass/>}/>
+              <Route path="class/:id" element={<DetailClass/>}/>
               <Route path="lesson" element={<Lesson/>}/>
               <Route path="lesson/new" element={<NewLesson/>}/>
               <Route path="lesson/:id" element={<EditLesson/>}/>
