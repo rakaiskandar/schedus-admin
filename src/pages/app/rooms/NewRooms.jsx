@@ -118,11 +118,6 @@ const NewRooms = () => {
                                 value={selectedLocation}
                                 onChange={setSelectedLocation}
                                 />
-                            {errors.located_at && (
-                                <span className="text-[13px] ml-1 text-red-500">
-                                    location rooms required fill
-                                </span>
-                            )}
                         </div>
 
                         <div>
@@ -180,14 +175,16 @@ const NewRooms = () => {
 
                         <div className="my-1 justify-end flex gap-3 md:">
                             <button
+                                disabled={loading}
                                 onClick={() => navigate('/app/room')}
-                                className={`cancelBtn`}
+                                className={`cancelBtn ${loading && "opacity-75 hover:bg-white"}`}
                             >
                                 Cancel
                             </button>
                             <button
+                                disabled={loading}
                                 type="submit"
-                                className={`createBtn`}
+                                className={`createBtn ${loading && "opacity-75 hover:bg-blue-600"}`}
                             >
                                 Create Rooms
                             </button>

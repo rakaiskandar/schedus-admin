@@ -44,7 +44,7 @@ const NewLesson = () => {
     return (
         <>
             <Helmet>
-                <title>Create Lesson | Schedus</title>
+                <title>Create Lessons | Schedus</title>
             </Helmet>
 
             <NavbarAdmin user={user} />
@@ -115,14 +115,16 @@ const NewLesson = () => {
 
                         <div className="my-1 justify-end flex gap-3 md:">
                             <button
+                                disabled={loading}
                                 onClick={() => navigate('/app/lesson')}
-                                className={`cancelBtn`}
+                                className={`cancelBtn ${loading && "opacity-75 hover:bg-white"}`}
                             >
                                 Cancel
                             </button>
                             <button
+                                disabled={loading}
                                 type="submit"
-                                className={`createBtn`}
+                                className={`createBtn ${loading && "opacity-75 hover:bg-blue-600"}`}
                             >
                                 Create Lesson
                             </button>

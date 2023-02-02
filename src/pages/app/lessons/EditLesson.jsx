@@ -1,5 +1,6 @@
+import { Menu } from "@headlessui/react";
 import { Icon } from "@iconify/react";
-import { doc, getDoc, updateDoc } from "firebase/firestore";
+import { deleteDoc, doc, getDoc, updateDoc } from "firebase/firestore";
 import { useEffect } from "react";
 import { useState } from "react";
 import { Helmet } from "react-helmet-async";
@@ -64,10 +65,22 @@ const EditLesson = () => {
         }
     }
 
+    const deleteData = async () => {
+        const id = toast.loading("Delete lesson...")
+        try {
+            await deleteDoc(doc(firestoreDb, "schedule", lesson.id))
+            toast.update(id, { render: "Delete lesson success", type: "success", isLoading: false, autoClose: 200 })
+            navigate('/app/lesson')
+        } catch (err) {
+            toast.update(id, { render: "Error!", type: "error", isLoading: false, autoClose: 200 })
+            console.error(err)
+        }
+    }
+
     return (
         <>
             <Helmet>
-                <title>Edit Lesson | Schedus</title>
+                <title>Edit Lessons | Schedus</title>
             </Helmet>
 
             <NavbarAdmin user={user} />
@@ -83,7 +96,29 @@ const EditLesson = () => {
                 <div className="contentContainer">
                     {!firstLoading && lesson ? (
                         <>
-                            <h1 className="pageName mb-6">Edit Lesson</h1>
+                            <div className="flex flex-row justify-between">
+                                <h1 className="pageName mb-6">Edit Lesson</h1>
+
+                                <Menu className="relative" as="div">
+                                    <Menu.Button className="flex hover:scale-105 transition-all ease-out duration-100 p-[2px] items-center gap-2 cursor-pointer w-full">
+                                       <Icon icon="material-symbols:more-vert" width="30" height="30"/>
+                                    </Menu.Button>
+                                    <Menu.Items className="absolute right-0 flex flex-col py-2 rounded bg-white gap-[2px] mt-1 w-40 shadowProfile text-sm font-medium z-10">
+                                        <Menu.Item>
+                                            {({ active }) => (
+                                                <button
+                                                    className={` px-3 py-[6px] flex gap-2  ${active && "bg-gray-100 text-red-500"
+                                                        }`}
+                                                    onClick={deleteData}
+                                                >
+                                                    <Icon icon="mdi:trash-can-outline" width="18" />
+                                                    <p className="font-medium">Delete Lesson</p>
+                                                </button>
+                                            )}
+                                        </Menu.Item>
+                                    </Menu.Items>
+                                </Menu>
+                            </div>
 
                             <form className="flex flex-col gap-4" onSubmit={handleSubmit(submitHandler)}>
                                 <div>
@@ -142,14 +177,16 @@ const EditLesson = () => {
 
                                 <div className="my-1 justify-end flex gap-3 md:">
                                     <button
+                                        disabled={loading}
                                         onClick={() => navigate('/app/lesson')}
-                                        className={`cancelBtn`}
+                                        className={`cancelBtn ${loading && "opacity-75 hover:bg-white"}`}
                                     >
                                         Cancel
                                     </button>
                                     <button
+                                        disabled={loading}
                                         type="submit"
-                                        className={`createBtn`}
+                                        className={`createBtn ${loading && "opacity-75 hover:bg-blue-600"}`}
                                     >
                                         Edit Lesson
                                     </button>

@@ -206,14 +206,16 @@ const NewSchedule = () => {
 
                         <div className="my-1 justify-end flex gap-3 md:">
                             <button
+                                disabled={loading}
                                 onClick={()=>navigate('/app/schedule')}
-                                className={`cancelBtn`}
+                                className={`cancelBtn ${loading && "opacity-75 hover:bg-white"}`}
                                 >
                                 Cancel
                             </button>
                             <button
+                                disabled={loading}
                                 type="submit"
-                                className={`createBtn`}
+                                className={`createBtn ${loading && "opacity-75 hover:bg-blue-600"}`}
                                 >
                                 Create Schedule
                             </button>
