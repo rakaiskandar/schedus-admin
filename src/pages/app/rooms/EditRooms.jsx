@@ -192,6 +192,7 @@ const EditRooms = () => {
                                         defaultValue={gedung}
                                         value={gedung}
                                         onChange={setGedung}
+                                        required
                                     />
                                 </div>
 

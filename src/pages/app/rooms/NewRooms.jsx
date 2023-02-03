@@ -117,7 +117,8 @@ const NewRooms = () => {
                                 className="text-sm"
                                 value={selectedLocation}
                                 onChange={setSelectedLocation}
-                                />
+                                required
+                            />
                         </div>
 
                         <div>
