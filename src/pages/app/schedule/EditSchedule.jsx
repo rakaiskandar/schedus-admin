@@ -11,6 +11,7 @@ import NavbarAdmin from "../../../components/NavbarAdmin";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 import { Menu } from "@headlessui/react";
+import Select from "react-select";
 
 const EditSchedule = () => {
     let { id } = useParams();
@@ -26,9 +27,29 @@ const EditSchedule = () => {
     const [schedule, setSchedule] = useState(null);
     const [firstLoading, setFirstLoading] = useState(true);
 
+    const blockValue = [
+        { value: "A", label: "Block A" },
+        { value: "B", label: "Block B" }
+    ];
+
+    const dayValue = [
+        { value: "Monday", label: "Monday" },
+        { value: "Tuesday", label: "Tuesday" },
+        { value: "Wednesday", label: "Wednesday" },
+        { value: "Thursday", label: "Thursday" },
+        { value: "Friday", label: "Friday" }
+    ];
+
+    const [selectedBlock, setSelectedBlock] = useState(blockValue[0]);
+    const [selectedDay, setSelectedDay] = useState(dayValue[0]);
+
     const getSchedule = async () => {
         const docRef = doc(firestoreDb, 'yourschedule', id);
         const docSnap = await getDoc(docRef);
+        let obj1 = blockValue.find(o => o.value === docSnap.data().block);
+        let obj2 = dayValue.find(o => o.value === docSnap.data().day);
+        setSelectedBlock(obj1);
+        setSelectedDay(obj2);
 
         return { ...docSnap.data(), id: docSnap.id };
     }
@@ -52,8 +73,8 @@ const EditSchedule = () => {
         const id = toast.loading("Edit schedule...")
         try {
             await updateDoc(doc(firestoreDb, 'yourschedule', schedule.id), {
-                block: data.block,
-                day: data.day,
+                block: selectedBlock.value,
+                day: selectedDay.value,
                 grade: data.grade,
                 subjectHour1til2: data.hour1til2,
                 subjectHour3til4: data.hour3til4,
@@ -106,7 +127,7 @@ const EditSchedule = () => {
 
                                 <Menu className="relative" as="div">
                                     <Menu.Button className="flex hover:scale-105 transition-all ease-out duration-100 p-[2px] items-center gap-2 cursor-pointer w-full">
-                                       <Icon icon="material-symbols:more-vert" width="30" height="30"/>
+                                        <Icon icon="material-symbols:more-vert" width="30" height="30" />
                                     </Menu.Button>
                                     <Menu.Items className="absolute right-0 flex flex-col py-2 rounded bg-white gap-[2px] mt-1 w-48 shadowProfile text-sm font-medium z-10">
                                         <Menu.Item>
@@ -130,36 +151,30 @@ const EditSchedule = () => {
                                     <label htmlFor="block" className="font-medium">
                                         Block<span className="text-red-600">*</span>
                                     </label>
-                                    <input
-                                        type="text"
-                                        id="block"
-                                        className="addInput"
-                                        placeholder="Block schedule"
-                                        defaultValue={schedule?.block}
-                                        {...register("block", {required: true})}/>
-                                        {errors.block && (
-                                            <span className="text-[13px] ml-1 text-red-500">
-                                                block required fill
-                                            </span>
-                                        )}
+                                    <Select
+                                        options={blockValue}
+                                        placeholder="Select block schedule"
+                                        className="text-sm"
+                                        defaultValue={selectedBlock}
+                                        value={selectedBlock}
+                                        onChange={setSelectedBlock}
+                                        required
+                                    />
                                 </div>
 
                                 <div>
                                     <label htmlFor="day" className="font-medium">
                                         Day<span className="text-red-600">*</span>
                                     </label>
-                                    <input
-                                        type="text"
-                                        id="day"
-                                        className="addInput"
-                                        placeholder="Day schedule"
-                                        defaultValue={schedule?.day} 
-                                        {...register("day", {required: true})}/>
-                                        {errors.day && (
-                                            <span className="text-[13px] ml-1 text-red-500">
-                                                day required fill
-                                            </span>
-                                        )}
+                                    <Select
+                                        options={dayValue}
+                                        placeholder="Select block schedule"
+                                        className="text-sm"
+                                        defaultValue={selectedDay}
+                                        value={selectedDay}
+                                        onChange={setSelectedDay}
+                                        required
+                                    />
                                 </div>
 
                                 <div>
@@ -171,13 +186,13 @@ const EditSchedule = () => {
                                         id="grade"
                                         className="addInput"
                                         placeholder="Grade name"
-                                        defaultValue={schedule?.grade} 
-                                        {...register("grade", {required: true})}/>
-                                        {errors.grade && (
-                                            <span className="text-[13px] ml-1 text-red-500">
-                                                grade required fill
-                                            </span>
-                                        )}
+                                        defaultValue={schedule?.grade}
+                                        {...register("grade", { required: true })} />
+                                    {errors.grade && (
+                                        <span className="text-[13px] ml-1 text-red-500">
+                                            grade required fill
+                                        </span>
+                                    )}
                                 </div>
 
                                 <div>
@@ -189,13 +204,13 @@ const EditSchedule = () => {
                                         id="subjectHour1til2"
                                         className="addInput"
                                         placeholder="Subject name in Hour 1 until 2"
-                                        defaultValue={schedule?.subjectHour1til2} 
-                                        {...register("hour1til2", {required: true})}/>
-                                        {errors.hour1til2 && (
-                                            <span className="text-[13px] ml-1 text-red-500">
-                                                subject required fill
-                                            </span>
-                                        )}
+                                        defaultValue={schedule?.subjectHour1til2}
+                                        {...register("hour1til2", { required: true })} />
+                                    {errors.hour1til2 && (
+                                        <span className="text-[13px] ml-1 text-red-500">
+                                            subject required fill
+                                        </span>
+                                    )}
                                 </div>
 
                                 <div>
@@ -207,13 +222,13 @@ const EditSchedule = () => {
                                         id="subjectHour3til4"
                                         className="addInput"
                                         placeholder="Subject name in Hour 3 until 4"
-                                        defaultValue={schedule?.subjectHour3til4} 
-                                        {...register("hour3til4", {required: true})}/>
-                                        {errors.hour3til4 && (
-                                            <span className="text-[13px] ml-1 text-red-500">
-                                                subject required fill
-                                            </span>
-                                        )}
+                                        defaultValue={schedule?.subjectHour3til4}
+                                        {...register("hour3til4", { required: true })} />
+                                    {errors.hour3til4 && (
+                                        <span className="text-[13px] ml-1 text-red-500">
+                                            subject required fill
+                                        </span>
+                                    )}
                                 </div>
 
                                 <div>
@@ -225,13 +240,13 @@ const EditSchedule = () => {
                                         id="subjectHour5til6"
                                         className="addInput"
                                         placeholder="Subject name in Hour 5 until 6"
-                                        defaultValue={schedule?.subjectHour5til6} 
-                                        {...register("hour5til6", {required: true})}/>
-                                        {errors.hour5til6 && (
-                                            <span className="text-[13px] ml-1 text-red-500">
-                                                subject required fill
-                                            </span>
-                                        )}
+                                        defaultValue={schedule?.subjectHour5til6}
+                                        {...register("hour5til6", { required: true })} />
+                                    {errors.hour5til6 && (
+                                        <span className="text-[13px] ml-1 text-red-500">
+                                            subject required fill
+                                        </span>
+                                    )}
                                 </div>
 
                                 <div>
@@ -243,13 +258,13 @@ const EditSchedule = () => {
                                         id="subjectHour7til8"
                                         className="addInput"
                                         placeholder="Subject name in Hour 7 until 8"
-                                        defaultValue={schedule?.subjectHour7til8} 
-                                        {...register("hour7til8", {required: true})}/>
-                                        {errors.hour7til8 && (
-                                            <span className="text-[13px] ml-1 text-red-500">
-                                                subject required fill
-                                            </span>
-                                        )}
+                                        defaultValue={schedule?.subjectHour7til8}
+                                        {...register("hour7til8", { required: true })} />
+                                    {errors.hour7til8 && (
+                                        <span className="text-[13px] ml-1 text-red-500">
+                                            subject required fill
+                                        </span>
+                                    )}
                                 </div>
 
                                 <div>
@@ -261,13 +276,13 @@ const EditSchedule = () => {
                                         id="subjectHour9til10"
                                         className="addInput"
                                         placeholder="Subject name in Hour 9 until 10"
-                                        defaultValue={schedule?.subjectHour9til10} 
-                                        {...register("hour9til10", {required: true})}/>
-                                        {errors.hour9til10 && (
-                                            <span className="text-[13px] ml-1 text-red-500">
-                                                subject required fill
-                                            </span>
-                                        )}
+                                        defaultValue={schedule?.subjectHour9til10}
+                                        {...register("hour9til10", { required: true })} />
+                                    {errors.hour9til10 && (
+                                        <span className="text-[13px] ml-1 text-red-500">
+                                            subject required fill
+                                        </span>
+                                    )}
                                 </div>
 
                                 <div className="my-1 justify-end flex gap-3 md:">

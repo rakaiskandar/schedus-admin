@@ -9,6 +9,7 @@ import { useState } from "react";
 import { toast } from "react-toastify";
 import { addDoc, collection, doc, updateDoc } from "firebase/firestore";
 import { firestoreDb } from "../../../../firebase";
+import Select from "react-select";
 
 const NewSchedule = () => {
     const {
@@ -18,15 +19,31 @@ const NewSchedule = () => {
     } = useForm();
     const user = useRecoilValue(userState);
     const navigate = useNavigate();
-    const [loading, setLoading] = useState(false)
+    const [loading, setLoading] = useState(false);
+
+    const blockValue = [
+        { value: "A", label: "Block A"},
+        { value: "B", label: "Block B"}
+    ];
+
+    const dayValue = [
+        { value: "Monday", label: "Monday"},
+        { value: "Tuesday", label: "Tuesday"},
+        { value: "Wednesday", label: "Wednesday"},
+        { value: "Thursday", label: "Thursday"},
+        { value: "Friday", label: "Friday"}
+    ];
+
+    const [selectedBlock, setSelectedBlock] = useState(blockValue[0]);
+    const [selectedDay, setSelectedDay] = useState(dayValue[0]);
 
     const submitHandler = async(data) => {
         setLoading(true)
         const id = toast.loading("Add schedule...")
         try{
             const docref = await addDoc(collection(firestoreDb, "yourschedule"), {
-                block: data.block,
-                day: data.day,
+                block: selectedBlock.value,
+                day: selectedDay.value,
                 grade: data.grade,
                 subjectHour1til2: data.hour1til2,
                 subjectHour3til4: data.hour3til4,
@@ -72,34 +89,28 @@ const NewSchedule = () => {
                             <label htmlFor="block" className="font-medium">
                                 Block<span className="text-red-600">*</span>
                             </label>
-                            <input 
-                            type="text"
-                            id="block" 
-                            className="addInput"
-                            placeholder="Block schedule"
-                            {...register("block", {required: true})}/>
-                            {errors.block && (
-                                <span className="text-[13px] ml-1 text-red-500">
-                                    block required fill
-                                </span>
-                            )}
+                            <Select
+                                options={blockValue}
+                                placeholder="Select block schedule"
+                                className="text-sm"
+                                value={selectedBlock}
+                                onChange={setSelectedBlock}
+                                required
+                            />
                         </div>
                         
                         <div>
                             <label htmlFor="day" className="font-medium">
                                 Day<span className="text-red-600">*</span>
                             </label>
-                            <input 
-                            type="text"
-                            id="day" 
-                            className="addInput"
-                            placeholder="Day schedule"
-                            {...register("day", {required: true})}/>
-                            {errors.day && (
-                                <span className="text-[13px] ml-1 text-red-500">
-                                    day required fill
-                                </span>
-                            )}
+                            <Select
+                                options={dayValue}
+                                placeholder="Select day schedule"
+                                className="text-sm"
+                                value={selectedDay}
+                                onChange={setSelectedDay}
+                                required
+                            />
                         </div>
 
                         <div>
