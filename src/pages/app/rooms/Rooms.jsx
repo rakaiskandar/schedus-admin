@@ -83,12 +83,12 @@ const Rooms = () => {
 
             <div className="contentContainer">
                 <div className="flex w-full my-2">
-                <input
-                    type="text"
-                    placeholder="Find Rooms"
-                    className="w-full focus:border-blue-600 text-sm outline-none border-[1px] border-gray-300 transition-all duration-300 ease-out  rounded p-2"
-                    onChange={handleFilterChange}
-                />
+                    <input
+                        type="text"
+                        placeholder="Find Rooms"
+                        className="w-full focus:border-blue-600 text-sm outline-none border-[1px] border-gray-300 transition-all duration-300 ease-out  rounded p-2"
+                        onChange={handleFilterChange}
+                    />
                 </div>
 
                 {!rooms.length ? (
