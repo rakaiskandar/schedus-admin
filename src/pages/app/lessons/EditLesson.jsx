@@ -26,7 +26,7 @@ const EditLesson = () => {
     const [lesson, setLesson] = useState(null);
     const [firstLoading, setFirstLoading] = useState(true);
 
-    const getLesson = async (data) => {
+    const getLesson = async () => {
         const docRef = doc(firestoreDb, "schedule", id);
         const docSnap = await getDoc(docRef);
 

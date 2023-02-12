@@ -48,7 +48,7 @@ const EditRooms = () => {
         const docRef = doc(firestoreDb, "rooms", id);
         const docSnap = await getDoc(docRef);
         let obj = locationValue.find(o => o.value === docSnap.data().located_at);
-        setGedung(obj)
+        setGedung(obj);
 
         return { ...docSnap.data(), id: docSnap.id };
     };
