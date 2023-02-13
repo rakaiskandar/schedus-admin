@@ -38,13 +38,7 @@ const EditEvent = () => {
         { value: "vjGqQsNX4sZflu88ty4O", label: "Gedung H" },
     ];
 
-    const statusValue = [
-        { value: "Ongoing", label: "Ongoing" },
-        { value: "Ended", label: "Ended" }
-    ];
-
     const [selectedLocation, setSelectedLocation] = useState(locationValue[0]);
-    const [selectedStatus, setSelectedStatus] = useState(statusValue[0]);
     const [selectedRooms, setSelectedRooms] = useState();
     const [selectedRoomOptions, setSelectedRoomOptions] = useState();
 
@@ -53,9 +47,7 @@ const EditEvent = () => {
         const docRef = doc(firestoreDb, "events", id);
         const docSnap = await getDoc(docRef);
         let obj1 = locationValue.find(o => o.value === docSnap.data().on_building);
-        let obj2 = statusValue.find(o => o.value === docSnap.data().status);
         setSelectedLocation(obj1)
-        setSelectedStatus(obj2);
 
         //For rooms
         const docRooms = query(collection(firestoreDb, "rooms"));
@@ -68,7 +60,7 @@ const EditEvent = () => {
             }
         });
 
-        let obj3 = mapped.find(o => o.value === docSnap.data().on_rooms);
+        let obj2 = mapped.find(o => o.value === docSnap.data().on_rooms);
         let options = mapped.map((d, i) => {
             return {
                 value: d.value,
@@ -76,7 +68,7 @@ const EditEvent = () => {
             }
         })
         setSelectedRoomOptions(options);
-        setSelectedRooms(obj3);
+        setSelectedRooms(obj2);
         
         return { ...docSnap.data(), id: docSnap.id };
     }
@@ -110,7 +102,6 @@ const EditEvent = () => {
                 from: data.from,
                 on_building: selectedLocation.value,
                 on_rooms: selectedRooms.value,
-                status: selectedStatus.value,
                 until: data.until,
             });
 
@@ -277,20 +268,6 @@ const EditEvent = () => {
                                             event until date required fill
                                         </span>
                                     )}
-                                </div>
-
-                                <div>
-                                    <label htmlFor="status" className="font-medium">
-                                        Status Event<span className="text-red-600">*</span>
-                                    </label>
-                                    <Select
-                                        options={statusValue}
-                                        placeholder="Select location rooms"
-                                        className="text-sm"
-                                        value={selectedStatus}
-                                        onChange={setSelectedStatus}
-                                        required
-                                    />
                                 </div>
 
                                 <div className="my-1 justify-end flex gap-3 md:">

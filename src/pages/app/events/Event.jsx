@@ -62,13 +62,6 @@ const Event = () => {
                     <p className={`text-[13px]`}>{typeof(value) == "object" ? dayjs(value.toDate()).format('D MMMM YYYY h:mm A') : dayjs(value).format('D MMMM YYYY h:mm A')}</p>
                 )
             },
-            {
-                Header: "Status",
-                accessor: "status",
-                Cell: ({ cell: {value} }) => (
-                    <p className={`text-[13px]`}>{value}</p>
-                )
-            },
         ]
     )
 

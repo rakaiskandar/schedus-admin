@@ -32,13 +32,7 @@ const NewEvent = () => {
         { value: "vjGqQsNX4sZflu88ty4O", label: "Gedung H" },
     ];
 
-    const statusValue = [
-        { value: "Ongoing", label: "Ongoing"},
-        { value: "Ended", label: "Ended"}
-    ];
-
     const [selectedLocation, setSelectedLocation] = useState(locationValue[0]);
-    const [selectedStatus, setSelectedStatus] = useState(statusValue[0]);
     const [selectedRooms, setSelectedRooms] = useState();
     const [selectedRoomOptions, setSelectedRoomOptions] = useState();
 
@@ -74,7 +68,6 @@ const NewEvent = () => {
                 from: data.from,
                 on_building: selectedLocation.value,
                 on_rooms: selectedRooms.value,
-                status: selectedStatus.value,
                 until: data.until,
             })
             await updateDoc(doc(firestoreDb, "events", docRef.id), {
@@ -205,20 +198,6 @@ const NewEvent = () => {
                                     event until date required fill
                                 </span>
                             )}
-                        </div>
-                        
-                        <div>
-                            <label htmlFor="status" className="font-medium">
-                                Status Event<span className="text-red-600">*</span>
-                            </label>
-                            <Select
-                                options={statusValue}
-                                placeholder="Select location rooms"
-                                className="text-sm"
-                                value={selectedStatus}
-                                onChange={setSelectedStatus}
-                                required
-                            />
                         </div>
 
                         <div className="my-1 justify-end flex gap-3 md:">
