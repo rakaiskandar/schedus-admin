@@ -5,9 +5,9 @@ import { useRecoilValue } from "recoil";
 import { userState } from "../../../atoms/userAtom";
 import NavbarAdmin from "../../../components/NavbarAdmin";
 import { useForm } from "react-hook-form";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
-import { addDoc, collection, doc, updateDoc } from "firebase/firestore";
+import { addDoc, collection, doc, getDocs, query, updateDoc } from "firebase/firestore";
 import { firestoreDb } from "../../../../firebase";
 import Select from "react-select";
 
@@ -36,6 +36,30 @@ const NewSchedule = () => {
 
     const [selectedBlock, setSelectedBlock] = useState(blockValue[0]);
     const [selectedDay, setSelectedDay] = useState(dayValue[0]);
+    const [selectedClass, setSelectedClass] = useState([]);
+    const [selectedClassOptions, setSelectedClassOptions] = useState([]);
+
+    const getDataClass = async () => {
+        const q = query(collection(firestoreDb, 'classgrade'));
+        const docSnap = await getDocs(q);
+        const data = docSnap.docs
+        const mapped = data.map(d => {
+            return d.data().classname.map(c => {
+                return { value: c, label: c }
+            })
+        }).reduce((a, e) => [...a, ...e], [])
+
+        setSelectedClassOptions(mapped);
+        setSelectedClass(mapped[0]);
+    }
+
+    useEffect(() => {
+        try {
+            getDataClass();
+        } catch (err) {
+            console.error(err);
+        }
+    }, [])
 
     const submitHandler = async(data) => {
         setLoading(true)
@@ -44,7 +68,7 @@ const NewSchedule = () => {
             const docref = await addDoc(collection(firestoreDb, "yourschedule"), {
                 block: selectedBlock.value,
                 day: selectedDay.value,
-                grade: data.grade,
+                grade: selectedClass.value,
                 subjectHour1til2: data.hour1til2,
                 subjectHour3til4: data.hour3til4,
                 subjectHour5til6: data.hour5til6,
@@ -117,17 +141,14 @@ const NewSchedule = () => {
                             <label htmlFor="grade" className="font-medium">
                                 Grade<span className="text-red-600">*</span>
                             </label>
-                            <input 
-                            type="text"
-                            id="grade" 
-                            className="addInput"
-                            placeholder="Grade name"
-                            {...register("grade", {required: true})}/>
-                            {errors.grade && (
-                                <span className="text-[13px] ml-1 text-red-500">
-                                    grade required fill
-                                </span>
-                            )}
+                            <Select
+                                options={selectedClassOptions}
+                                placeholder="Select day schedule"
+                                className="text-sm"
+                                value={selectedClass}
+                                onChange={setSelectedClass}
+                                required
+                            />
                         </div>
 
                         <div>

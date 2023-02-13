@@ -1,5 +1,5 @@
 import { Icon } from "@iconify/react";
-import { deleteDoc, doc, getDoc, updateDoc } from "firebase/firestore";
+import { collection, deleteDoc, doc, getDoc, getDocs, query, updateDoc } from "firebase/firestore";
 import { useEffect } from "react";
 import { useState } from "react";
 import { Helmet } from "react-helmet-async";
@@ -42,8 +42,11 @@ const EditSchedule = () => {
 
     const [selectedBlock, setSelectedBlock] = useState(blockValue[0]);
     const [selectedDay, setSelectedDay] = useState(dayValue[0]);
+    const [selectedClass, setSelectedClass] = useState([]);
+    const [selectedClassOptions, setSelectedClassOptions] = useState([]);
 
     const getSchedule = async () => {
+        //For Schedule
         const docRef = doc(firestoreDb, 'yourschedule', id);
         const docSnap = await getDoc(docRef);
         let obj1 = blockValue.find(o => o.value === docSnap.data().block);
@@ -51,6 +54,20 @@ const EditSchedule = () => {
         setSelectedBlock(obj1);
         setSelectedDay(obj2);
 
+        //For Class
+        const docClass = query(collection(firestoreDb, 'classgrade'));
+        const docClassRef = await getDocs(docClass);
+        const data = docClassRef.docs
+        const mapped = data.map(d => {
+            return d.data().classname.map(c => {
+                return { value: c, label: c }
+            })
+        }).reduce((a, e) => [...a, ...e], [])
+
+        let obj3 = mapped.find(o => o.value === docSnap.data().grade); 
+        setSelectedClassOptions(mapped);
+        setSelectedClass(obj3);
+        
         return { ...docSnap.data(), id: docSnap.id };
     }
 
@@ -75,7 +92,7 @@ const EditSchedule = () => {
             await updateDoc(doc(firestoreDb, 'yourschedule', schedule.id), {
                 block: selectedBlock.value,
                 day: selectedDay.value,
-                grade: data.grade,
+                grade: selectedClass.value,
                 subjectHour1til2: data.hour1til2,
                 subjectHour3til4: data.hour3til4,
                 subjectHour5til6: data.hour5til6,
@@ -181,18 +198,15 @@ const EditSchedule = () => {
                                     <label htmlFor="grade" className="font-medium">
                                         Grade<span className="text-red-600">*</span>
                                     </label>
-                                    <input
-                                        type="text"
-                                        id="grade"
-                                        className="addInput"
-                                        placeholder="Grade name"
-                                        defaultValue={schedule?.grade}
-                                        {...register("grade", { required: true })} />
-                                    {errors.grade && (
-                                        <span className="text-[13px] ml-1 text-red-500">
-                                            grade required fill
-                                        </span>
-                                    )}
+                                    <Select
+                                        options={selectedClassOptions}
+                                        placeholder="Select day schedule"
+                                        className="text-sm"
+                                        value={selectedClass}
+                                        defaultValue={selectedClass}
+                                        onChange={setSelectedClass}
+                                        required
+                                    />
                                 </div>
 
                                 <div>
