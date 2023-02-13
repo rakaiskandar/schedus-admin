@@ -1,6 +1,5 @@
 import { HelmetProvider } from "react-helmet-async"
 import { BrowserRouter, Routes, Route } from "react-router-dom"
-import ClassGrade from "./pages/app/classgrade/Class"
 import Dashboard from "./pages/app/Dashboard"
 import Layout from "./pages/app/Layout"
 import Rooms from "./pages/app/rooms/Rooms"
@@ -18,7 +17,6 @@ import Lesson from "./pages/app/lessons/Lesson"
 import NewLesson from "./pages/app/lessons/NewLesson"
 import EditLesson from "./pages/app/lessons/EditLesson"
 import EditRooms from "./pages/app/rooms/EditRooms"
-import DetailClass from "./pages/app/classgrade/DetailClass"
 import Event from "./pages/app/events/Event"
 import NewEvent from "./pages/app/events/NewEvent"
 import EditEvent from "./pages/app/events/EditEvent"
@@ -37,8 +35,6 @@ function App() {
               <Route path="home" element={<Dashboard />} />
               <Route path="user" element={<User />} />
               <Route path="user/:id" element={<EditUser/>}/>
-              <Route path="class" element={<ClassGrade />} />
-              <Route path="class/:id" element={<DetailClass/>}/>
               <Route path="lesson" element={<Lesson/>}/>
               <Route path="lesson/new" element={<NewLesson/>}/>
               <Route path="lesson/:id" element={<EditLesson/>}/>

@@ -21,11 +21,11 @@ const Sidebar = () => {
             itemPath: "/app/user",
             icon: "bi:people",
         },
-        {
-            itemName: "Class",
-            itemPath: "/app/class",
-            icon: "fluent:class-20-regular",
-        },
+        // {
+        //     itemName: "Class",
+        //     itemPath: "/app/class",
+        //     icon: "fluent:class-20-regular",
+        // },
         {
             itemName: "Lessons",
             itemPath: "/app/lesson",
