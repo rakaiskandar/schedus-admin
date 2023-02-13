@@ -11,6 +11,7 @@ import NavbarAdmin from "../../../components/NavbarAdmin";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 import { Menu } from "@headlessui/react";
+import Select from "react-select";
 
 const EditUser = () => {
     let { id } = useParams();
@@ -26,9 +27,18 @@ const EditUser = () => {
     const [userD, setUserD] = useState(null);
     const [firstLoading, setFirstLoading] = useState(true);
 
+    const roleValue = [
+        { value: "admin", label: "admin"},
+        { value: "student", label: "student"},
+    ];
+
+    const [selectedRole, setSelectedRole] = useState(roleValue[0]);
+
     const getUser = async () => {
         const docRef = doc(firestoreDb, 'users', id);
         const docSnap = await getDoc(docRef);
+        let obj1 = roleValue.find(o => o.value === docSnap.data().role);
+        setSelectedRole(obj1);
 
         return { ...docSnap.data(), id: docSnap.id }
     }
@@ -57,7 +67,7 @@ const EditUser = () => {
                 name: data.name,
                 nis: data.nis,
                 grade: data.grade,
-                role: data.role,
+                role: selectedRole.value,
             })
             toast.update(id, { render: "Edit user success", type: "success", isLoading: false, autoClose: 200 })
         } catch (err) {
@@ -84,7 +94,7 @@ const EditUser = () => {
     return (
         <>
             <Helmet>
-                <title>Edit User | Schedu</title>
+                <title>Edit User | Schedus</title>
             </Helmet>
 
             <NavbarAdmin user={user} />
@@ -201,18 +211,15 @@ const EditUser = () => {
                                     <label htmlFor="role" className="font-medium">
                                         Role<span className="text-red-600">*</span>
                                     </label>
-                                    <input
-                                        type="text"
-                                        id="role"
-                                        className="addInput"
-                                        placeholder="Role"
-                                        defaultValue={userD?.role}
-                                        {...register("role", { required: true })} />
-                                    {errors.role && (
-                                        <span className="text-[13px] ml-1 text-red-500">
-                                            role required fill
-                                        </span>
-                                    )}
+                                    <Select
+                                        options={roleValue}
+                                        placeholder="Select block schedule"
+                                        className="text-sm"
+                                        defaultValue={selectedRole}
+                                        value={selectedRole}
+                                        onChange={setSelectedRole}
+                                        required
+                                    />
                                 </div>
 
                                 <div className="my-1 justify-end flex gap-3 md:">

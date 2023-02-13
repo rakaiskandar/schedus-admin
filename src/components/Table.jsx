@@ -106,7 +106,7 @@ export default function Table({ columns, data, filterInput, filterColumn }) {
                     <Icon
                         icon="cil:chevron-circle-right-alt"
                         width="28"
-                        className={`${!canNextPage ? "opacity-40 cursor-auto" : "hover:text-purple-600 text-gray-700"
+                        className={`${!canNextPage ? "opacity-40 cursor-auto" : "hover:text-blue-600 text-gray-700"
                             } cursor-pointer`}
                     />
                 </button>
