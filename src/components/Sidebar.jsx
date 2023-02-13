@@ -41,13 +41,18 @@ const Sidebar = () => {
             itemPath: "/app/room",
             icon: "cil:room",
         },
+        {
+            itemName: "Events",
+            itemPath: "/app/event",
+            icon: "material-symbols:event-available-outline-sharp"
+        },
     ];
 
     return (
         <>
        { /* Sidebar for desktop */}
 
-        <nav className="pl-6 pr-2 py-7 justify-center h-screen border-r-[1px] w-full sidebarSticky border-r-gray-300 hidden md:flex">
+        <nav className="pl-6 pr-2 py-6 justify-center h-screen border-r-[1px] w-full sidebarSticky border-r-gray-300 hidden md:flex">
             <div className="w-full my-5 gap-3 flex flex-col">
                 <div className="mb-4 -mt-8">
                     <img src={logo} alt="logo" className="w-11/12"/>

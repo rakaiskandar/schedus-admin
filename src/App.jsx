@@ -19,6 +19,9 @@ import NewLesson from "./pages/app/lessons/NewLesson"
 import EditLesson from "./pages/app/lessons/EditLesson"
 import EditRooms from "./pages/app/rooms/EditRooms"
 import DetailClass from "./pages/app/classgrade/DetailClass"
+import Event from "./pages/app/events/Event"
+import NewEvent from "./pages/app/events/NewEvent"
+import EditEvent from "./pages/app/events/EditEvent"
 
 function App() {
 
@@ -45,6 +48,9 @@ function App() {
               <Route path="room" element={<Rooms />} />
               <Route path="room/new" element={<NewRooms />} />
               <Route path="room/:id" element={<EditRooms/>}/>
+              <Route path="event" element={<Event/>}/>
+              <Route path="event/new" element={<NewEvent/>}/>
+              <Route path="event/:id" element={<EditEvent/>}/>
             </Route>
           </Routes>
         </BrowserRouter>
