@@ -36,6 +36,7 @@ const EditEvent = () => {
         { value: "vZ63vaVqCcEH2mV1xhq5", label: "Gedung F" },
         { value: "vjGqQsNX4sZflu88ty4J", label: "Gedung G" },
         { value: "vjGqQsNX4sZflu88ty4O", label: "Gedung H" },
+        { value: "vjGqQsNX4sZflu88ty4P", label: "Struktur Lainnya"}
     ];
 
     const [selectedLocation, setSelectedLocation] = useState(locationValue[0]);

@@ -101,7 +101,6 @@ const Event = () => {
                         <EmptyTable columns={columns}/>
                     ) : (
                         <Table columns={columns} data={event} filterColumn="event" filterInput={filterChange}/>
-                        // <div>Tes</div>
                     )
                     }
                 </div>
