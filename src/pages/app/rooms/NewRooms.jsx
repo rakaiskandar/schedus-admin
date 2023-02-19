@@ -21,8 +21,10 @@ const NewRooms = () => {
     } = useForm();
     const user = useRecoilValue(userState);
     const navigate = useNavigate();
-    const imgRef = useRef("");
-    const [selectedImage, setSelectedImage] = useState();
+    const imgRef1 = useRef("");
+    const imgRef2 = useRef("");
+    const [selectedImage1, setSelectedImage1] = useState();
+    const [selectedImage2, setSelectedImage2] = useState();
     const [loading, setLoading] = useState(false);
 
     const locationValue = [
@@ -34,13 +36,20 @@ const NewRooms = () => {
         { value: "vZ63vaVqCcEH2mV1xhq5", label: "Gedung F" },
         { value: "vjGqQsNX4sZflu88ty4J", label: "Gedung G" },
         { value: "vjGqQsNX4sZflu88ty4O", label: "Gedung H" },
+        { value: "vjGqQsNX4sZflu88ty4P", label: "Struktur Lainnya"}
     ];
 
     const [selectedLocation, setSelectedLocation] = useState(locationValue[0]);
 
-    const imageChange = (e) => {
+    const imageChange1 = (e) => {
         if (e.target.files && e.target.files.length > 0) {
-            setSelectedImage(e.target.files[0]);
+            setSelectedImage1(e.target.files[0]);
+        }
+    };
+
+    const imageChange2 = (e) => {
+        if (e.target.files && e.target.files.length > 0) {
+            setSelectedImage2(e.target.files[0]);
         }
     };
 
@@ -50,14 +59,15 @@ const NewRooms = () => {
         try {
             const docRef = await addDoc(collection(firestoreDb, "rooms"), {
                 desc: data.desc,
-                imgThumb: "https://firebasestorage.googleapis.com/v0/b/schedus-storage.appspot.com/o/backup%2Frooms.jpg?alt=media&token=9dc3dee4-1c51-451d-9ab3-07a9c54aeed2",
                 located_at: selectedLocation.value,
                 room: data.room
             })
-            const image = await setFirestoreStorage(selectedImage, docRef.id, "roomspicture");
+            const image1 = await setFirestoreStorage(selectedImage1, docRef.id, "roomspicture");
+            const image2 = await setFirestoreStorage(selectedImage2, docRef.id, "buildingpicture");
             await updateDoc(doc(firestoreDb, "rooms", docRef.id), {
                 rid: docRef.id,
-                imgUrl: image
+                imgUrl: image1,
+                imgThumb: image2,
             })
             toast.update(id ,{render: "Add rooms success!", type: "success", isLoading: false, autoClose: 200})
             navigate("/app/room")
@@ -137,6 +147,42 @@ const NewRooms = () => {
                                 </span>
                             )}
                         </div>
+                        
+                        <div>
+                            <label htmlFor="teacherName" className="font-medium">
+                                Image Thumb<span className="text-red-600">*</span>
+                            </label>
+                            <div
+                                className="border-gray-300 border-[1px] w-fit hover:border-blue-600 p-4 items-center my-2 rounded flex flex-col gap-4 cursor-pointer"
+                                onClick={() => imgRef2.current.click()}
+                            >
+                                {selectedImage2 ? (
+                                    <img
+                                        src={URL.createObjectURL(selectedImage2)}
+                                        className="w-56 h-56 object-cover"
+                                        alt="Thumb"
+                                    />
+                                ) : (
+                                    <>
+                                        <img
+                                            src={imgPlaceholder}
+                                            alt="img placeholder"
+                                            className="w-32"
+                                        />
+                                        <h5 className="text-sm font-medium">Add Image</h5>
+                                    </>
+                                )}
+                            </div>
+                            <input
+                                type="file"
+                                name="gambar"
+                                accept="buildingpicture/*"
+                                className="opacity-0"
+                                ref={imgRef2}
+                                onChange={imageChange2}
+                                required
+                            />
+                        </div>
 
                         <div>
                             <label htmlFor="teacherName" className="font-medium">
@@ -144,11 +190,11 @@ const NewRooms = () => {
                             </label>
                             <div
                                 className="border-gray-300 border-[1px] w-fit hover:border-blue-600 p-4 items-center my-2 rounded flex flex-col gap-4 cursor-pointer"
-                                onClick={() => imgRef.current.click()}
+                                onClick={() => imgRef1.current.click()}
                             >
-                                {selectedImage ? (
+                                {selectedImage1 ? (
                                     <img
-                                        src={URL.createObjectURL(selectedImage)}
+                                        src={URL.createObjectURL(selectedImage1)}
                                         className="w-56 h-56 object-cover"
                                         alt="Thumb"
                                     />
@@ -168,8 +214,8 @@ const NewRooms = () => {
                                 name="gambar"
                                 accept="roomspicture/*"
                                 className="opacity-0"
-                                ref={imgRef}
-                                onChange={imageChange}
+                                ref={imgRef1}
+                                onChange={imageChange1}
                                 required
                             />
                         </div>
