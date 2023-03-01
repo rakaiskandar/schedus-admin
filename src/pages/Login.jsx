@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { auth } from '../../firebase';
 import ilustration from '../assets/login.svg';
+import logo from '../assets/app_logo.png';
 
 const Login = () => {
   const navigate = useNavigate();
@@ -52,7 +53,10 @@ const Login = () => {
 
       <div className="lg:grid lg:grid-cols-2 bg-white lg:bg-transparent">
         <div className="flex flex-col justify-center h-screen bg-white w-full lg:w-11/12">
-          <div className="flex flex-col px-10 lg:pl-24">
+          <div className="w-48 top-0 -mt-[60px] mb-12">
+              <img src={logo} alt="" />
+          </div>
+          <div className="flex flex-col px-10 lg:pl-28">
             <div className="w-72">
               <h1 className="text-3xl font-bold">Hello, Schemin👋</h1>
               <h2 className="text-md font-regular text-gray-400 mt-3">Welcome back! Please enter your details.</h2>
