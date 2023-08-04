@@ -1,5 +1,5 @@
 # Schedus Admin
-##### Admin Panel for Schedus app mobile project
+Schedus Admin is admin dashboard for Schedus(mobile app for schedule and rooms in SMKN 4 Bandung) build with React and Firebase
 
 ## Features
 - Role Access (Admin)
